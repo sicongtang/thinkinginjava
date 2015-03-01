@@ -16,9 +16,24 @@ import java.util.ListIterator;
 public class Ex10 {
 
 	public static void main(String[] args) {
-		// "/Users/BobbyTang/Projects/thinkinginjava/src/main/java/com/mindviewinc/chapter18/exercise/Ex7.java"
 
-		String fileName = null;
+		String fileName = "/Users/BobbyTang/Projects/thinkinginjava/src/main/java/com/mindviewinc/chapter18/exercise/Ex10.java";
+
+		StringBuilder strBuilder = new StringBuilder();
+
+		if (args.length > 0) {
+
+			strBuilder.append("^.*(");
+			for (int i = 1; i < args.length; i++) {
+				strBuilder.append(args[i]);
+				if (i < args.length - 1) {
+					strBuilder.append("|");
+				}
+			}
+			strBuilder.append(").*$");
+		}
+
+		String matchPattern = strBuilder.toString();
 
 		BufferedReader reader = null;
 		LinkedList<String> list = new LinkedList<>();
@@ -28,7 +43,9 @@ public class Ex10 {
 			String line = null;
 
 			while ((line = reader.readLine()) != null) {
-				list.add(line);
+				if (line.matches(matchPattern)) {
+					list.add(line);
+				}
 			}
 
 		} catch (Exception e) {
@@ -46,5 +63,4 @@ public class Ex10 {
 			System.out.println(iter.previous());
 		}
 	}
-
 }
